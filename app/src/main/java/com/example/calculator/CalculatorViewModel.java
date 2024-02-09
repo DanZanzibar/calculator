@@ -3,12 +3,12 @@ package com.example.calculator;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.function.Function;
-
 public class CalculatorViewModel extends ViewModel {
 
+    private CalculatorNumFormatter fmt;
     private Double savedOperand;
-    private MathOperation savedOperator;
+    private BinaryOperation savedOperation;
+    private String historyAppendage;
     private MutableLiveData<String> currentDisplay;
     private MutableLiveData<String> history;
     private MutableLiveData<String> memory;
@@ -17,16 +17,16 @@ public class CalculatorViewModel extends ViewModel {
         return savedOperand;
     }
 
-    public void setSavedOperand(Double savedOperand) {
-        this.savedOperand = savedOperand;
+    public void storeSavedOperand() {
+        fmt.strToDouble(currentDisplay.getValue());
     }
 
-    public MathOperation getSavedOperator() {
-        return savedOperator;
+    public BinaryOperation getSavedOperation() {
+        return savedOperation;
     }
 
-    public void setSavedOperator(MathOperation savedOperator) {
-        this.savedOperator = savedOperator;
+    public void setSavedOperation(BinaryOperation savedOperation) {
+        this.savedOperation = savedOperation;
     }
 
     public MutableLiveData<String> getCurrentDisplay() {
@@ -45,6 +45,11 @@ public class CalculatorViewModel extends ViewModel {
         this.history.setValue(history);
     }
 
+    public void appendToHistory(String addition) {
+        String historyStr = history.getValue();
+        history.setValue(historyStr + addition);
+    }
+
     public MutableLiveData<String> getMemory() {
         return memory;
     }
@@ -53,8 +58,11 @@ public class CalculatorViewModel extends ViewModel {
         this.memory.setValue(memory);
     }
 
-    public void operatorButtonClick(MathOperation operation) {
-        Double secondOperand = currentDisplay.getValue();
-        Double calculatedValue = savedOperator.getNumber(savedOperand, )
+    public CalculatorNumFormatter getFmt() {
+        return fmt;
+    }
+
+    public Double getCurrentOperand() {
+        return fmt.strToDouble(currentDisplay.getValue());
     }
 }
