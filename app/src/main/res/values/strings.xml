@@ -1,5 +1,44 @@
 <resources>
     <string name="app_name">Calculator</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="decimal">.</string>
+    <string name="equals">=</string>
+    <string name="plus">+</string>
+    <string name="subtract">-</string>
+    <string name="multiply">\u00D7</string>
+    <string name="divide">\u00F7</string>
+    <string name="clear">C</string>
+    <string name="delete">DEL</string>
+    <string name="plus_minus">+/-</string>
+    <string name="percent">%</string>
+    <string name="memory_recall">MR</string>
+    <string name="memory_plus">M+</string>
+    <string name="memory_minus">M-</string>
+    <string name="memory_clear">MC</string>
+    <string name="square_root">\u221A</string>
+    <string name="x_to_the_y">x<sup><small>y</small></sup></string>
+    <string name="e_to_the_x">e<sup><small>x</small></sup></string>
+    <string name="the_natural_number">e</string>
+    <string name="one_over_x">1/x</string>
+    <string name="log">log</string>
+    <string name="natural_log">ln</string>
+    <string name="pi">\u03C0</string>
+    <string name="ten_to_the_x">10<sup><small>x</small></sup></string>
+    <string name="sine">sin</string>
+    <string name="cosine">cos</string>
+    <string name="tangent">tan</string>
+    <string name="degree">Deg</string>
+    <string name="radian">Rad</string>
+    <string name="inverse_sine">sin<sup><small>-1</small></sup></string>
+    <string name="inverse_cosine">cos<sup><small>-1</small></sup></string>
+    <string name="inverse_tangent">tan<sup><small>-1</small></sup></string>
 </resources>

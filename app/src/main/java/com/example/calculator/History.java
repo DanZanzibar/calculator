@@ -1,51 +1,71 @@
+//******************************************************************************
+//  History.java
+//
+//  Zan Owsley T00745703
+//  COMP 2161 Assignment 4
+//  This class contains the logic for the calculator's history and stores the
+//  MutableLiveData<String> that is observed by the DisplayFragment's TextView
+//  responsible for displaying it.
+//******************************************************************************
 package com.example.calculator;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class History {
 
-    private String currentValue;
-    private String storedUnaryOperators;
-    private String storedOperand;
-    private int lengthOfLastOperatorSymbol;
+    private final MutableLiveData<String> historyLiveData;
+    private boolean resetNeeded;
 
+    //--------------------------------------------------------------------------
+    //  The constructor for the class.
+    //--------------------------------------------------------------------------
     public History() {
-        currentValue = "";
-        storedUnaryOperators = "";
-        storedOperand = "";
+        historyLiveData = new MutableLiveData<String>("");
     }
 
-    public String getCurrentValue() {
-        return currentValue;
+    //--------------------------------------------------------------------------
+    //  A getter method for resetNeeded.
+    //--------------------------------------------------------------------------
+    public boolean isResetNeeded() {
+        return resetNeeded;
     }
 
-    public void addOperation(Operation operation, String operand) {
-        String operatorSymbol = operation.getOperatorSymbol();
-        if (operation instanceof UnaryOperation)
-            addUnaryOperation((UnaryOperation) operation, operand);
-        else
-            addBinaryOperation((BinaryOperation) operation, operand);
+    //--------------------------------------------------------------------------
+    //  A setter method for resetNeeded.
+    //--------------------------------------------------------------------------
+    public void setResetNeeded(boolean resetNeeded) {
+        this.resetNeeded = resetNeeded;
     }
 
-    public void replaceLastBinaryOperator(BinaryOperation operation) {
-        currentValue = currentValue.substring(0, currentValue.length() - lengthOfLastOperatorSymbol);
-        currentValue += operation.getOperatorSymbol();
+    //--------------------------------------------------------------------------
+    //  A getter method for historyLiveData.
+    //--------------------------------------------------------------------------
+    public MutableLiveData<String> getHistoryLiveData() {
+        return historyLiveData;
     }
 
-    private void addUnaryOperation(UnaryOperation operation, String operand) {
-        if (storedOperand.equals(""))
-            storedOperand = operand;
-        storedUnaryOperators = operation.getOperatorSymbol() + storedUnaryOperators;
+    //--------------------------------------------------------------------------
+    //  This method concatenates a String to the String stored in
+    //  historyLiveData.
+    //--------------------------------------------------------------------------
+    public void add(String str) {
+        historyLiveData.setValue(historyLiveData.getValue() + str);
     }
 
-    private void addBinaryOperation(BinaryOperation operation, String operand) {
-        if (!storedOperand.equals("")){
-            currentValue += storedUnaryOperators + storedOperand;
-            storedUnaryOperators = "";
-            storedOperand = "";
-        }
-        else
-            currentValue += operand;
-        String operator = operation.getOperatorSymbol();
-        currentValue += operator;
-        lengthOfLastOperatorSymbol = operator.length();
+    //--------------------------------------------------------------------------
+    //  This method replaces the last character in the history string with a new
+    //  one. Used when replaceLastBinaryOperation is invoked in the ViewModel.
+    //--------------------------------------------------------------------------
+    public void replaceLastCharacter(String str) {
+        String historyStr = historyLiveData.getValue();
+        historyLiveData.setValue(historyStr.substring(0, historyStr.length() - 1) + str);
+    }
+
+    //--------------------------------------------------------------------------
+    //  This method clears the existing history.
+    //--------------------------------------------------------------------------
+    public void reset() {
+        historyLiveData.setValue("");
+        resetNeeded = false;
     }
 }

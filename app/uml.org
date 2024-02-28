@@ -1,0 +1,23 @@
+* CalculatorViewModel
+** Fields
+** Methods
+** Nested Classes
+*** CalculatorButtonPush
+**** Fields
+**** Methods
+-
+*** MainDisplay
+**** Fields
+**** Methods
+- resetToZero
+- displayResult
+*** History (collect and print Operations?)
+**** Fields
+**** Methods
+- getHistoryDisplay
+- addOperation
+- getHistoryStr(Operation operation, boolean firstOperation)
+*** Binary Operation
+**** Fields
+**** Methods
+-

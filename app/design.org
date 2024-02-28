@@ -1,0 +1,226 @@
+
+*** Binary Operators
+**** mainDisplay
+- 
+**** history
+- 
+**** state
+- 
+**** other
+- 
+*** Unary Operators
+**** mainDisplay
+- 
+**** history
+- 
+**** state
+- 
+**** other
+- 
+*** Equals
+**** mainDisplay
+- 
+**** history
+- 
+**** state
+- 
+**** other
+- 
+*** Clear
+- 
+*** Backspace
+- 
+*** Decimal
+- 
+* Stages of operation
+** Zero displayed, no history
+*** Binary Operators
+**** mainDisplay
+- setReadyForNumber
+**** history
+- addOperand
+- addOperator
+**** state
+- storePartialBinaryOperation
+**** other
+- 
+*** Unary Operators
+**** mainDisplay
+- displayResult
+**** history
+- addOperator
+- addOperand
+**** state
+- 
+**** other
+- 
+*** Equals
+**** mainDisplay
+- 
+**** history
+- 
+**** state
+- 
+**** other
+- 
+*** Clear
+- 
+*** Backspace
+- 
+*** Decimal
+- 
+** During Initial Number Entry
+*** Binary Operators
+**** mainDisplay
+- setReadyForNumber
+**** history
+- addOperand
+- addOperator
+**** state
+- storePartialBinaryOperation
+**** other
+- 
+*** Unary Operators
+**** mainDisplay
+- displayResult
+**** history
+- addOperator
+- addOperand
+**** state
+- 
+**** other
+- 
+*** Equals
+**** mainDisplay
+- 
+**** history
+- 
+**** state
+- 
+**** other
+- 
+*** Clear
+- 
+*** Backspace
+- 
+*** Decimal
+- 
+** Unary button pushed
+*** Binary Operators
+**** mainDisplay
+- setReadyForNumber
+**** history
+- addOperand
+- addOperator
+**** state
+- storePartialBinaryOperation
+**** other
+- 
+*** Unary Operators
+**** mainDisplay
+- displayResult
+**** history
+- clearHistory
+- addOperator
+- addOperand
+**** state
+- 
+**** other
+- 
+*** Equals
+Should repeat unary operation using current display as operand
+**** mainDisplay
+**** history
+**** state
+**** other
+- repeatUnaryOperation
+*** Clear
+- 
+*** Backspace
+- 
+*** Decimal
+- 
+** Binary button pushed (just stored binary operation)
+*** Binary Operators
+**** mainDisplay
+- setReadyForNumber
+**** history
+- replaceLastBinaryOperator
+**** state
+- replaceStoredPartialBinaryOperation
+**** other
+- 
+*** Unary Operators
+**** mainDisplay
+- displayResult
+**** history
+- clearHistory
+- addOperator
+- addOperand
+**** state
+- 
+**** other
+- 
+*** Equals
+Should use the current display as the 2nd operand to the stored binary operation.
+So basically, just normal operation.
+**** mainDisplay
+- displayResult (uses stored operation for computation)
+**** history
+- addOperand
+- addEquals (also finishes history)
+**** state
+- setToInitialEntry
+**** other
+- 
+*** Clear
+- 
+*** Backspace
+- 
+*** Decimal
+-
+** Entering Number after storing binary operation
+*** Binary Operators
+**** mainDisplay
+- displayResult
+**** history
+- addOperand
+- addOperator
+**** state
+- setStoredOperation
+**** other
+- executeStoredOperation
+*** Unary Operators
+- normal
+*** Equals
+- normal
+*** Clear
+- 
+*** Backspace
+- 
+*** Decimal
+- 
+** After Equals Push
+*** Binary Operators
+**** mainDisplay
+- setReadyForNumber
+**** history
+- clearHistory
+- addOperand
+- addOperator
+**** state
+- storeOperation
+**** other
+- 
+*** Unary Operators
+- normal
+*** Equals
+Just does nothing for simplicity's sake.
+*** Clear
+- 
+*** Backspace
+- 
+*** Decimal
+- 
+* Things to do
+** TODO Modify history so that it displays unary operations effects immediately

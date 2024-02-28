@@ -1,6 +1,15 @@
+//******************************************************************************
+//  DisplayFragment.java
+//
+//  Zan Owsley T00745703
+//  COMP 2161 Assignment 4
+//  This class represents the fragment of the app displaying the numerical
+//  values, memory indicator, and history.
+//******************************************************************************
 package com.example.calculator;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,29 +21,42 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class DisplayFragment extends Fragment {
 
-    private CalculatorViewModel viewModel;
-    private TextView displayView, historyView, memoryView;
 
+    //--------------------------------------------------------------------------
+    //  A constructor for the class - handles layout inflation.
+    //--------------------------------------------------------------------------
+    public DisplayFragment() {
+        super(R.layout.fragment_display);
+    }
+
+    //--------------------------------------------------------------------------
+    //  This method is used to set up the reference to the ViewModel and set
+    //  up the Observers so that the calculator is always displaying the correct
+    //  MutableLiveData String value.
+    //--------------------------------------------------------------------------
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        displayView = requireView().findViewById(R.id.main_display);
-        historyView = requireView().findViewById(R.id.history);
-        memoryView = requireView().findViewById(R.id.memory);
+        TextView displayView = requireView().findViewById(R.id.main_display);
+        TextView historyView = requireView().findViewById(R.id.history);
+        TextView memoryView = requireView().findViewById(R.id.memory);
 
-        this.viewModel = new ViewModelProvider(requireActivity()).get(CalculatorViewModel.class);
+        CalculatorViewModel viewModel = new ViewModelProvider(requireActivity()).get(CalculatorViewModel.class);
 
         Observer<String> displayObserver = createObserver(displayView);
-        viewModel.getCurrentDisplay().observe(requireActivity(), displayObserver);
+        viewModel.getMainDisplay().getDisplayLiveData().observe(getViewLifecycleOwner(), displayObserver);
 
         Observer<String> historyObserver = createObserver(historyView);
-        viewModel.getHistory().observe(requireActivity(), historyObserver);
+        viewModel.getHistory().getHistoryLiveData().observe(getViewLifecycleOwner(), historyObserver);
 
         Observer<String> memoryObserver = createObserver(memoryView);
-        viewModel.getMemory().observe(requireActivity(), memoryObserver);
+        viewModel.getMemory().getMemoryDisplay().observe(requireActivity(), memoryObserver);
     }
 
+    //--------------------------------------------------------------------------
+    //  This helper method sets up an Observer for a given TextView.
+    //--------------------------------------------------------------------------
     private Observer<String> createObserver(TextView view) {
         return new Observer<String>() {
             @Override
